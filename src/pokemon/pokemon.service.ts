@@ -4,19 +4,26 @@ import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 import { Model } from 'mongoose';
 import { Pokemon } from './entities/pokemon.entity';
 import { InjectModel } from '@nestjs/mongoose';
+import { HandleError } from 'src/utils/HandleError';
 
 @Injectable()
 export class PokemonService {
   constructor(
     @InjectModel(Pokemon.name)
     private readonly pokemonModel: Model<Pokemon>,
+    private readonly handleError: HandleError,
   ) {}
 
-  create(createPokemonDto: CreatePokemonDto) {
+  async create(createPokemonDto: CreatePokemonDto) {
     createPokemonDto.name = createPokemonDto.name.toLocaleLowerCase();
 
-    const pokemon = this.pokemonModel.create(createPokemonDto);
-    return pokemon;
+    try {
+      const pokemon = await this.pokemonModel.create(createPokemonDto);
+
+      return pokemon;
+    } catch (error) {
+      this.handleError.handleErrorService(error);
+    }
   }
 
   findAll() {
