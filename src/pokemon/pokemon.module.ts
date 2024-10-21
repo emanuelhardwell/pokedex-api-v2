@@ -3,6 +3,7 @@ import { PokemonService } from './pokemon.service';
 import { PokemonController } from './pokemon.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Pokemon, PokemonSchema } from './entities/pokemon.entity';
+import { HandleError } from 'src/utils/HandleError';
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import { Pokemon, PokemonSchema } from './entities/pokemon.entity';
     ]),
   ],
   controllers: [PokemonController],
-  providers: [PokemonService],
+  providers: [PokemonService, HandleError],
 })
 export class PokemonModule {}
