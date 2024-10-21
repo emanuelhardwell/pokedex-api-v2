@@ -32,6 +32,9 @@ importers:
       class-validator:
         specifier: ^0.14.1
         version: 0.14.1
+      mongodb:
+        specifier: ^6.9.0
+        version: 6.9.0
       mongoose:
         specifier: ^8.7.1
         version: 8.7.1
