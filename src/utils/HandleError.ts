@@ -21,7 +21,7 @@ export class HandleError {
 
     if (typeof error === 'string') throw new BadRequestException(error);
 
-    if (error instanceof Error) throw new InternalServerErrorException(error);
+    if (error instanceof Error) throw error;
 
     throw new InternalServerErrorException(error);
   }
