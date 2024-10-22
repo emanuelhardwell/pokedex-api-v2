@@ -47,7 +47,9 @@ export class PokemonService {
       }
 
       if (!pokemon) {
-        throw new NotFoundException(`Pockemon serached by Id, Name, No ${term} not found`);
+        throw new NotFoundException(
+          `Pockemon serached by Id, Name, No ${term} not found`,
+        );
       }
 
       return pokemon;
@@ -56,8 +58,20 @@ export class PokemonService {
     }
   }
 
-  update(id: number, updatePokemonDto: UpdatePokemonDto) {
-    return `This action updates a #${id} pokemon`;
+  async update(term: string, updatePokemonDto: UpdatePokemonDto) {
+    try {
+      const pokemon = await this.findOne(term);
+
+      if (updatePokemonDto.name) {
+        updatePokemonDto.name = updatePokemonDto.name
+          .toLocaleLowerCase()
+          .trim();
+        await pokemon.updateOne(updatePokemonDto);
+        return { ...pokemon.toJSON(), ...updatePokemonDto };
+      }
+    } catch (error) {
+      this.handleError.handleErrorService(error);
+    }
   }
 
   remove(id: number) {
