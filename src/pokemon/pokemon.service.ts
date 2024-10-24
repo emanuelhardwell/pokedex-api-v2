@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 import { isValidObjectId, Model } from 'mongoose';
@@ -74,7 +78,17 @@ export class PokemonService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pokemon`;
+  async remove(id: string) {
+    try {
+      // const pokemon = await this.pokemonModel.findByIdAndDelete(id);
+      const { deletedCount } = await this.pokemonModel.deleteOne({ _id: id });
+
+      if (deletedCount < 1) {
+        throw new BadRequestException(`Pokemon with id: ${id} not found`);
+      }
+      return;
+    } catch (error) {
+      this.handleError.handleErrorService(error);
+    }
   }
 }
