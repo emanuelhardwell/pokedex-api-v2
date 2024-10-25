@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import axios, { AxiosInstance } from 'axios';
 import { PokemonResponse } from './interfaces/pokemon-response.interface';
 import { HandleError } from '../utils/HandleError';
 import { InjectModel } from '@nestjs/mongoose';
 import { Pokemon } from 'src/pokemon/entities/pokemon.entity';
 import { Model } from 'mongoose';
+import { AxiosAdapter } from '../common/adapters/axios.adapter';
 
 @Injectable()
 export class SeedService {
@@ -12,21 +12,20 @@ export class SeedService {
     private readonly handleError: HandleError,
     @InjectModel(Pokemon.name)
     private readonly pokemonModel: Model<Pokemon>,
+    private readonly axiosAdapter: AxiosAdapter,
   ) {}
-  // refactor (create Adapter for request)
-  private readonly axios: AxiosInstance = axios;
 
   async executeSeed() {
     try {
       await this.pokemonModel.deleteMany();
 
-      const pokemons = await this.axios.get<PokemonResponse>(
+      const pokemons = await this.axiosAdapter.get<PokemonResponse>(
         'https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0',
       );
 
       const pokemonsAll: { name: string; no: number }[] = [];
 
-      pokemons.data.results.forEach(({ name, url }) => {
+      pokemons.results.forEach(({ name, url }) => {
         const segments = url.split('/');
         const no = +segments[segments.length - 2];
 
