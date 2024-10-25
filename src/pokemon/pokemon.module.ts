@@ -16,5 +16,6 @@ import { HandleError } from 'src/utils/HandleError';
   ],
   controllers: [PokemonController],
   providers: [PokemonService, HandleError],
+  exports: [MongooseModule],
 })
 export class PokemonModule {}
