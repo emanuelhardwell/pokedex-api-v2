@@ -10,14 +10,21 @@ import { Pokemon } from './entities/pokemon.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { HandleError } from 'src/utils/HandleError';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class PokemonService {
+  private readonly defaultLimit: number;
+
   constructor(
     @InjectModel(Pokemon.name)
     private readonly pokemonModel: Model<Pokemon>,
     private readonly handleError: HandleError,
-  ) {}
+    private readonly configService: ConfigService,
+  ) {
+    // this.defaultLimit = this.configService.getOrThrow<number>('defaultLimit'); SHOW ERROR: Configuration key "defaultLimit" does not exist
+    this.defaultLimit = this.configService.get<number>('defaultLimit');
+  }
 
   async create(createPokemonDto: CreatePokemonDto) {
     createPokemonDto.name = createPokemonDto.name.toLocaleLowerCase();
@@ -33,8 +40,7 @@ export class PokemonService {
 
   async findAll(paginationDto: PaginationDto) {
     try {
-      const { limit = 10, offset = 0 } = paginationDto;
-      console.log({ limit, offset });
+      const { limit = this.defaultLimit, offset = 0 } = paginationDto;
 
       const pokemon = await this.pokemonModel
         .find()
