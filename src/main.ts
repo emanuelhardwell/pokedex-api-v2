@@ -10,6 +10,10 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
+      transform: true, // convert the query parameters of type 'string' to 'number' ... '5' --> 5
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   );
 
