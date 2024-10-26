@@ -16,7 +16,7 @@ import { envConfig } from './config/env.config';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017/nest-pokemon'),
+    MongooseModule.forRoot(process.env.MONGODB),
     PokemonModule,
     CommonModule,
     SeedModule,
@@ -24,4 +24,8 @@ import { envConfig } from './config/env.config';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  // constructor() {
+  //   console.log(process.env);
+  // }
+}
