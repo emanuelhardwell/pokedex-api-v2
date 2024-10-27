@@ -10,5 +10,4 @@ test/
 .eslintrc.js
 .prettierrc
 nest-cli.json
-pnpm-lock.yaml
 README.md
