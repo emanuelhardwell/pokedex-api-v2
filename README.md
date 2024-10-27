@@ -29,44 +29,61 @@
 ## Project setup
 
 1.- clone repository
+```
+git clone UrlRepository
+```
 
 2.- install dependencies
-```bash
-$ pnpm install
+```
+pnpm install
 ```
 
 3.- install Nest CLI 
-```bash
-$ npm install -g @nestjs/cli
+```
+npm install -g @nestjs/cli
 ```
 
 4.- raise MongoDB 
-```bash
-$ docker-compose up -d
+```
+docker-compose up -d
+```
+
+5.- rename file __.env.template__ to __.env__
+
+6.- fill yours envs in the file __.env__
+
+7.- run server in development mode
+```
+pnpm run start:dev
+```
+
+8.- execute endpoint of Seed
+```
+[endpoint](http://localhost:3000/api/v2/seed)
 ```
 
 ## Compile and run the project
 
-```bash
+```
 # development
-$ pnpm run start
+pnpm run start
 
 # watch mode
-$ pnpm run start:dev
+pnpm run start:dev
 
 # production mode
-$ pnpm run start:prod
+pnpm run start:prod
 ```
 
 ## Run tests
 
-```bash
+```
 # unit tests
-$ pnpm run test
+pnpm run test
 
 # e2e tests
-$ pnpm run test:e2e
+pnpm run test:e2e
 
 # test coverage
-$ pnpm run test:cov
+pnpm run test:cov
 ```
