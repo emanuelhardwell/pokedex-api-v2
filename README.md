@@ -62,6 +62,25 @@ pnpm run start:dev
 [endpoint](http://localhost:3000/api/v2/seed)
 ```
 
+## Docker: Compile and run the project
+1.- create file __.env.prod__
+
+2.- execute to Build
+```
+docker-compose -f docker-compose.prod.yml --env-file .env.prod up --build
+```
+
+3.- execute to Run. if you need
+```
+docker-compose -f docker-compose.prod.yml --env-file .env.prod up
+```
+
+Note: __By default docker-compose uses the .env file, so if you have the .env file and configure it with your production environment variables, it would be enough__
+```
+docker-compose -f docker-compose.prod.yml up --build
+```
+
+
 ## Compile and run the project
 
 ```
