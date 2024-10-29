@@ -1,0 +1,13 @@
+dist/
+mongo/
+node_modules/
+test/
+
+.git/
+.gitignore
+
+.env*
+.eslintrc.js
+.prettierrc
+nest-cli.json
+README.md

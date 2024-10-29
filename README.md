@@ -29,44 +29,80 @@
 ## Project setup
 
 1.- clone repository
+```
+git clone UrlRepository
+```
 
 2.- install dependencies
-```bash
-$ pnpm install
+```
+pnpm install
 ```
 
 3.- install Nest CLI 
-```bash
-$ npm install -g @nestjs/cli
+```
+npm install -g @nestjs/cli
 ```
 
 4.- raise MongoDB 
-```bash
-$ docker-compose up -d
 ```
+docker-compose up -d
+```
+
+5.- rename file __.env.template__ to __.env__
+
+6.- fill yours envs in the file __.env__
+
+7.- run server in development mode
+```
+pnpm run start:dev
+```
+
+8.- execute endpoint of Seed
+```
+[endpoint](http://localhost:3000/api/v2/seed)
+```
+
+## Docker: Compile and run the project
+1.- create file __.env.prod__
+
+2.- execute to Build
+```
+docker-compose -f docker-compose.prod.yml --env-file .env.prod up --build
+```
+
+3.- execute to Run. if you need
+```
+docker-compose -f docker-compose.prod.yml --env-file .env.prod up
+```
+
+Note: __By default docker-compose uses the .env file, so if you have the .env file and configure it with your production environment variables, it would be enough__
+```
+docker-compose -f docker-compose.prod.yml up --build
+```
+
 
 ## Compile and run the project
 
-```bash
+```
 # development
-$ pnpm run start
+pnpm run start
 
 # watch mode
-$ pnpm run start:dev
+pnpm run start:dev
 
 # production mode
-$ pnpm run start:prod
+pnpm run start:prod
 ```
 
 ## Run tests
 
-```bash
+```
 # unit tests
-$ pnpm run test
+pnpm run test
 
 # e2e tests
-$ pnpm run test:e2e
+pnpm run test:e2e
 
 # test coverage
-$ pnpm run test:cov
+pnpm run test:cov
 ```
